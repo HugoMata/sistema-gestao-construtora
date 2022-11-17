@@ -11,6 +11,7 @@ import dcc603.construtora.*;
 import dcc603.construtora.classes.*;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProjetoTest {
 	
@@ -51,6 +52,7 @@ public class ProjetoTest {
 	
 	@Test
 	public void testCriarControleDiarioEListarEquipamentos() {
+		// nota que eu tenho...
 		Date date = new Date();
 		String Codigo = "123";
 		String Descricao = "Escavadeira Ultra XG100";
@@ -66,13 +68,36 @@ public class ProjetoTest {
 		
 		EquipamentoComprado equipamentoComprado = new EquipamentoComprado(Codigo, Descricao, Tipo, Marca, Modelo, Ano, Valor, DataAquisicao, DataVenda, Situacao, Fornecedor);
 		ControleEquipamentos controleEquipamentos = new ControleEquipamentos();
-		controleEquipamentos.cadastrarEquipamentoComprado(equipamentoComprado);
 		
+		// quando eu faco...
+		controleEquipamentos.cadastrarEquipamentoComprado(equipamentoComprado);
 		ControleDiario controleDiario = new ControleDiario(date.toString());
 		controleDiario.adicionarControleEquipamentos(controleEquipamentos);
 		System.out.println("Equipamentos: ");
 		controleDiario.listarEquipamentosComprados();
 		
+		// entao eu epero que aconteca...
 		assertEquals("Controle de Equipamentos foi adicionado ao Controle diario", controleDiario.getControleEquipamentos(), controleEquipamentos);
+	}
+	
+	@Test
+	public void testCriarOcorrencia() {
+		// nota que eu tenho...
+		Ocorrencia ocor = new Ocorrencia("Descrição da ocorrência aqui", "0001");
+		Date date = new Date();
+		ControleDiario controleDiario = new ControleDiario(date.toString());
+		controleDiario.adicionarOcorrencia(ocor);
+		
+		// quando eu faco...
+		//controleDiario.getOcorrencias();
+		// list ocorrencias by printing every item in list of ocorrencias
+		System.out.println("Ocorrencias: ");
+		List<Ocorrencia> ocorrencias = controleDiario.getOcorrencias();
+		for (Ocorrencia ocorrencia : ocorrencias) {
+			System.out.println(ocorrencia.getDescricao());
+		}
+		
+		// entao eu epero que aconteca...
+		assertEquals("Ocorrencia foi adicionada ao Controle diario", ocor, controleDiario.getOcorrencias().get(0));
 	}
 }
